@@ -1,8 +1,26 @@
 {
-  "name": "الأمان الرقمي - دار الشباب حي الكرمة",
-  "short_name": "الأمان الرقمي",
+  "name": "فضاء رقمي آمن، مسؤوليتي ومسؤوليتك — نادي الأمان الرقمي والسلم المجتمعي",
+  "short_name": "فضاء رقمي آمن",
+  "description": "برنامج تحسيسي تفاعلي لاستخدام سليم وآمن للإنترنت ومواقع التواصل الاجتماعي — دار الشباب حي الكرمة، القصرين",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1e3a8a"
+  "background_color": "#FFFFFF",
+  "theme_color": "#6B0A14",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
