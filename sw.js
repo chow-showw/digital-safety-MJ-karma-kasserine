@@ -1,6 +1,6 @@
 /* عمل البرنامج دون إنترنت: الصفحة أولًا من الشبكة (لتصل التحديثات)، ثم من الذاكرة عند انقطاعها */
-const CACHE = 'fadaa-safe-v1';
-const FILES = ['./', 'index.html', 'yaqzan-game.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
+const CACHE = 'fadaa-safe-v4';
+const FILES = ['./', 'index.html', 'yaqzan-game.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'hissa-60.pdf', 'awraq-al-shabab.pdf', 'awraq-al-yafieen.pdf', 'alaab-tanshitiya.pdf'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(FILES.map(f => c.add(f).catch(() => {})))).then(() => self.skipWaiting()));
