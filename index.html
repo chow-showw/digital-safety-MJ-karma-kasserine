@@ -550,6 +550,7 @@ body.pd .fnav{display:none!important}
 .sp-it2{display:flex;flex-direction:column;gap:.35rem;align-items:flex-start;min-width:0}.sp-it2 span,.sp-it2 small{font-size:.86rem;color:var(--muted)}
 @media print{.sp-inst{display:none}}
 footer .copy{font-weight:700;margin:.3rem 0}footer .copy a{color:inherit;text-decoration:underline}
+.onum{display:inline-flex;min-width:1.7rem;height:1.7rem;border-radius:50%;background:#C8102E;color:#fff;font-weight:bold;align-items:center;justify-content:center;margin-inline-end:.5rem;flex:none}
 #wm{position:fixed;inset:0;pointer-events:none;z-index:2147483000;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27380%27 height=%27230%27%3E%3Ctext x=%27190%27 y=%27115%27 font-family=%27Tahoma%2CArial%2Csans-serif%27 font-size=%2725%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23808080%27 transform=%27rotate%28-25 190 115%29%27%3E%C2%A9 %D9%87%D8%B4%D8%A7%D9%85 %D9%82%D8%A7%D9%87%D8%B1%D9%8A %C2%B7 %D9%81%D8%B6%D8%A7%D8%A1 %D8%B1%D9%82%D9%85%D9%8A %D8%A2%D9%85%D9%86%3C/text%3E%3C/svg%3E");background-repeat:repeat}@media print{#wm{position:fixed;opacity:.10}}</style>
 </head>
 <body>
@@ -1427,9 +1428,9 @@ function scen(key,d){
   const oi=ordr('o_'+key,d.opts.length);
   const msg=(S.dz&&d.dz)?d.dz:d.msg;
   let h=`<p class="ctx">${d.ctx}</p><div class="bubble">${msg}</div><div class="opts">`;
-  oi.forEach(i=>{
+  oi.forEach((i,pos)=>{
     const o=d.opts[i];
-    h+=`<button class="opt ${a!==undefined?(i===a?'pick s'+o.s:'dim'):''}" data-act="pick" data-key="${key}" data-i="${i}" ${a!==undefined?'disabled':''}>${o.t}</button>`;
+    h+=`<button class="opt ${a!==undefined?(i===a?'pick s'+o.s:'dim'):''}" data-act="pick" data-key="${key}" data-i="${i}" ${a!==undefined?'disabled':''}><span class="onum">${pos+1}</span> ${o.t}</button>`;
   });
   h+='</div>';
   if(a!==undefined){
@@ -1452,7 +1453,7 @@ function seq(key){
   btns.forEach((b,i)=>{
     let cls='';
     if(a!==undefined){cls=i===it.c?'right':(i===a?'wrong':'dim')}
-    h+=`<button class="opt ${cls}" data-act="sans" data-key="${key}" data-b="${i}" ${a!==undefined?'disabled':''}>${b.t}</button>`;
+    h+=`<button class="opt ${cls}" data-act="sans" data-key="${key}" data-b="${i}" ${a!==undefined?'disabled':''}>${key==='fraud'?'<span class="onum">'+(i+1)+'</span> ':''}${b.t}</button>`;
   });
   h+='</div>';
   if(a!==undefined){
@@ -1597,7 +1598,7 @@ function facView(){
   <p class="warn">⏱ لا تتجاوز الحصة <b>60 دقيقة</b> في أي ظرف، بما فيها الألعاب والزوبعة. لإدارة الحصة كمسابقة بين فرق بمخطّط زمني يمنع التجاوز، افتح تبويب «الحصة التفاعلية».</p>
   <p class="noprint"><button class="btn" data-act="printdoc">طباعة الورقة</button></p>
   <h3>قبل الحصة</h3><ul>${FAC_PREP.map(x=>`<li>${x}</li>`).join('')}</ul>
-  <div class="noprint" style="display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0"><a class="btn" href="hissa-60.pdf" target="_blank" rel="noopener">📄 دليل المنشّط (نسخة ورقية)</a><a class="btn sec" href="awraq-al-shabab.pdf" target="_blank" rel="noopener">📝 أوراق الشبان للطباعة</a><a class="btn sec" href="awraq-al-yafieen.pdf" target="_blank" rel="noopener">📝 أوراق اليافعين للطباعة</a><a class="btn sec" href="alaab-tanshitiya.pdf" target="_blank" rel="noopener">🎣 الألعاب التنشيطية</a><a class="btn sec" href="nasaeh-al-aman.pdf" target="_blank" rel="noopener">💡 النصائح (ورقة لكل نصيحة)</a><a class="btn sec" href="bitaqat-tawiya-shabab.pdf" target="_blank" rel="noopener">📖 البطاقات التوعوية: الشباب</a><a class="btn sec" href="bitaqat-tawiya-yafieen.pdf" target="_blank" rel="noopener">📖 البطاقات التوعوية: اليافعين</a><a class="btn sec" href="bitaqat-taallumat.pdf" target="_blank" rel="noopener">🧩 بطاقات التعلّمات (مجسم الهاتف)</a><a class="btn sec" href="adwar-al-fariq.pdf" target="_blank" rel="noopener">🏷️ شارات الأدوار</a><a class="btn sec" href="lafitat-abj.pdf" target="_blank" rel="noopener">🔤 لافتات أ وب وج (A5)</a><a class="btn sec" href="daleel-shabab.pdf" target="_blank" rel="noopener">📘 دليل الشباب</a><a class="btn sec" href="daleel-yafieen.pdf" target="_blank" rel="noopener">📗 دليل اليافعين</a><a class="btn sec" href="daleel-awliya.pdf" target="_blank" rel="noopener">📙 دليل الأولياء والمربين</a><a class="btn sec" href="alaab-tanshitiya.pdf" target="_blank" rel="noopener">🎣 الألعاب التنشيطية وجذاذاتها</a></div><h3>صيغ مقترحة للحصة</h3>${FAC_PLANS.map((p,i)=>{const b=(v,t)=>`<button class="pill noprint" data-act="${v==='full'?'pathclear':'pathset'}" data-v="${v}" aria-pressed="${v==='full'?!(S.path&&S.path.length):S.pathN===PATHS[v].n}">${t}</button>`;const bt=[b('short','طبّق على البرنامج'),b('full','كل المحطات'),b('ws1','طبّق الجلسة 1')+' '+b('ws2','طبّق الجلسة 2')][i]||'';return `<p><b>${p.n}:</b> ${p.l.join(' · ')}<br>${bt}</p>`}).join('')}
+  <div class="noprint" style="display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0"><a class="btn" href="hissa-60.pdf" target="_blank" rel="noopener">📄 دليل المنشّط (نسخة ورقية)</a><a class="btn sec" href="awraq-al-shabab.pdf" target="_blank" rel="noopener">📝 أوراق الشبان للطباعة</a><a class="btn sec" href="awraq-al-yafieen.pdf" target="_blank" rel="noopener">📝 أوراق اليافعين للطباعة</a><a class="btn sec" href="alaab-tanshitiya.pdf" target="_blank" rel="noopener">🎣 الألعاب التنشيطية</a><a class="btn sec" href="nasaeh-al-aman.pdf" target="_blank" rel="noopener">💡 النصائح (ورقة لكل نصيحة)</a><a class="btn sec" href="bitaqat-tawiya-shabab.pdf" target="_blank" rel="noopener">📖 البطاقات التوعوية: الشباب</a><a class="btn sec" href="bitaqat-tawiya-yafieen.pdf" target="_blank" rel="noopener">📖 البطاقات التوعوية: اليافعين</a><a class="btn sec" href="bitaqat-taallumat.pdf" target="_blank" rel="noopener">🧩 بطاقات التعلّمات (مجسم الهاتف)</a><a class="btn sec" href="adwar-al-fariq.pdf" target="_blank" rel="noopener">🏷️ شارات الأدوار</a><a class="btn sec" href="lafitat-abj.pdf" target="_blank" rel="noopener">🔤 لافتات أ وب وج (A5)</a><a class="btn sec" href="daleel-shabab.pdf" target="_blank" rel="noopener">📘 دليل الشباب</a><a class="btn sec" href="daleel-yafieen.pdf" target="_blank" rel="noopener">📗 دليل اليافعين</a><a class="btn sec" href="daleel-awliya.pdf" target="_blank" rel="noopener">📙 دليل الأولياء والمربين</a><a class="btn" href="qr.html" target="_blank" rel="noopener">🔳 أوراق QR لتحميل الأدلة</a><a class="btn sec" href="mithaq-al-mumarasat.pdf" target="_blank" rel="noopener">✍️ ميثاق الممارسات الرقمية (للطباعة)</a><a class="btn sec" href="alaab-tanshitiya.pdf" target="_blank" rel="noopener">🎣 الألعاب التنشيطية وجذاذاتها</a></div><h3>صيغ مقترحة للحصة</h3>${FAC_PLANS.map((p,i)=>{const b=(v,t)=>`<button class="pill noprint" data-act="${v==='full'?'pathclear':'pathset'}" data-v="${v}" aria-pressed="${v==='full'?!(S.path&&S.path.length):S.pathN===PATHS[v].n}">${t}</button>`;const bt=[b('short','طبّق على البرنامج'),b('full','كل المحطات'),b('ws1','طبّق الجلسة 1')+' '+b('ws2','طبّق الجلسة 2')][i]||'';return `<p><b>${p.n}:</b> ${p.l.join(' · ')}<br>${bt}</p>`}).join('')}
   <h3>توجيهات المحطات</h3><div class="tblw"><table class="tbl"><thead><tr><th>المحطة</th><th>الزمن</th><th>الهدف</th><th>كيف تديرها</th><th>سؤال للنقاش</th><th>انتبه</th></tr></thead><tbody>${rows}</tbody></table></div>
   ${facExtra()}<h3>عند كشف حالة حساسة</h3><ul>${FAC_SENS.map(x=>`<li>${x}</li>`).join('')}</ul>
   <div class="help"><b>أرقام مهمة:</b><ul><li>الرقم الأخضر للطفولة: <b>1809</b></li><li>الشرطة: <b>197</b> · الحرس الوطني: <b>193</b></li></ul></div>`;
@@ -1915,14 +1916,14 @@ const CTK=['share','news','fraud','pay','games','apps','ai','edu','influ','wa','
 let CT={phase:'setup',teams:[{n:'الفريق الأول',s:0},{n:'الفريق الثاني',s:0}],rounds:10,secs:20,keys:CTK.slice(),pool:[],i:0,shown:false,given:false,left:20,run:false,beep:true,board:false,tb:false,tied:null,rest:[],sid:0};
 /* ---------- الحصة التفاعلية: مسابقة بين فرق على امتداد الحصة (60 دقيقة كحد أقصى) ---------- */
 const SXMAX=60,SXTR=2;
-const SXORD=['zaw','tree','pre','open','passlure','hunt','blackfraud','balloon','share','news','bully','pay','games','apps','ai','edu','influ','wa','trace','harm','law','bal','post','end'];
-const SXDEF=['zaw','tree','pre','open','passlure','blackfraud','post','end'];
+const SXORD=['zaw','tree','pre','open','passlure','hunt','blackfraud','balloon','share','news','bully','pay','games','apps','ai','edu','influ','wa','trace','harm','law','bal','post','end','feedback'];
+const SXDEF=['zaw','tree','pre','open','passlure','blackfraud','post','end','feedback'];
 const SXSTEP={pass:[2,0],chat:[10,0],black:[10,0],fraud:[4,0],hunt:[5,0],balloon:[5,0]};
 const SXSUB={passlure:['pass','chat'],blackfraud:['black','fraud']};
 function sxMeta(k){const o=sxMeta0(k);if(SX.mn&&SX.mn[k]!=null)o.m=SX.mn[k];return o}
 function sxMeta0(k){
-  const c={zaw:['🕸️','زوبعة ذهنية: كرة الخيوط وشبكة العنكبوت',5],tree:['🌳','شجرة الانتظارات',5],pre:['📝','الاختبار القبلي في الأمان الرقمي',5],open:['👥','الفرق والأدوار وورقة الجوكر',2],passlure:['🔑','كلمة السر والاستدراج',15],hunt:['🎣','لعبة صيد الممارسات الرقمية الآمنة والخطيرة',8],blackfraud:['🛡️','الابتزاز والاحتيال',15],balloon:['🎈','لعبة سيد البالون',5],post:['✅','الاختبار البعدي في الأمان الرقمي',5],end:['✍️','ميثاق الممارسات الرقمية',5]}[k];
-  if(c)return {k,ic:c[0],n:c[1],m:c[2],must:['open','pre','post','end'].includes(k)};
+  const c={zaw:['🕸️','زوبعة ذهنية: كرة الخيوط وشبكة العنكبوت',5],tree:['🌳','شجرة الانتظارات',5],pre:['📝','الاختبار القبلي في الأمان الرقمي',5],open:['👥','الفرق والأدوار وورقة الجوكر',2],passlure:['🔑','كلمة السر والاستدراج',15],hunt:['🎣','لعبة صيد الممارسات الرقمية الآمنة والخطيرة',8],blackfraud:['🛡️','الابتزاز والاحتيال',15],balloon:['🎈','لعبة سيد البالون',5],post:['✅','الاختبار البعدي في الأمان الرقمي',5],end:['✍️','ميثاق الممارسات الرقمية',5],feedback:['🙂','التقييم: وجهي يعبر عن رأيي',5]}[k];
+  if(c)return {k,ic:c[0],n:c[1],m:c[2],must:['zaw','tree','pre','open','post','end','feedback'].includes(k)};
   const s=ST.find(x=>x.k===k);return {k,ic:s.ic,n:s.n,m:(FAC[k]&&FAC[k].t)||6,must:false};
 }
 const SXR=[['📝','المقرِّر','يدوّن أفكار الفريق ويكتب الجواب بعد أن يتكلم الجميع.'],['🎤','الناطق','يعلن جواب الفريق بصوت واضح بعد أن يقرأ المقرِّر ما كُتب.'],['🔍','المحقِّق','يسأل «لماذا؟» ويراجع الجواب وعلامات الخطر قبل الإعلان.'],['⏱️','حارس الوقت','يراقب الوقت ويتأكد أن كل واحد قال رأيه.']];
@@ -1931,8 +1932,6 @@ const SXC={
  kids:[["أرسل صورتي لشخص تعرفت عليه اليوم.", 0], ["أخفي الأمر خجلًا إذا هددني أحدهم.", 0], ["أقابل صديق اللعبة دون أن أخبر أحدًا.", 0], ["أجعل كلمة سر حسابي جملة طويلة أحبها.", 1], ["أستعمل اسمي وسنة ميلادي ككلمة سر.", 0], ["أجعل حسابي خاصًا.", 1], ["أخرج من حسابي بعد اللعب على هاتف غيري.", 1], ["أعطي كلمة سري لأمي أو أبي فقط.", 1], ["أقبل صداقة من أعرفهم في الواقع فقط.", 1], ["أتجاهل رسالة «اربح جواهر مجانًا».", 1], ["أخبر أمي أو أبي إذا كتب لي غريب في اللعبة.", 1], ["أحظر اللاعب الذي يطلب مني رقم هاتفي.", 1], ["أعطي كلمة سر حسابي لصديق في اللعبة.", 0], ["إن قال لي أحدهم «لا تخبر أحدًا» أخبر شخصًا بالغًا فورًا.", 1], ["ألعب مدة محددة ثم أرتاح وأنام باكرًا.", 1], ["أضغط على رابط «تهكير مجاني» وأدخل حسابي.", 0], ["أطلب إذن والديّ قبل أي شراء داخل اللعبة.", 1], ["أصوّر الرسالة المخيفة وأريها لأبي.", 1], ["أرسل رمز بطاقة الشحن لمن قال إنني ربحت 5 غيغا.", 0], ["أستعمل 123456 ككلمة سر.", 0], ["أشارك رسالة «شارك لعشرة أصدقاء وإلا...».", 0], ["أكتب كلمة سري على ورقة وألصقها على هاتفي.", 0], ["أقبل مكالمة فيديو من لاعب لا أعرفه.", 0], ["أعطي عنواني واسم مدرستي لغريب.", 0]]
 };
 
-const SXFIL='ما المشاكل والمخاطر التي يمكن أن تواجهنا حين نستعمل الإنترنت ومواقع التواصل الاجتماعي؟';
-const SXFILH={tree:'اربطوا انتظاراتكم بالأخطار التي ذكرتموها في شبكة العنكبوت.',pre:'ماذا نعرف عن هذه الأخطار قبل الحصة؟',open:'سنواجه الأخطار معًا كفريق، كلٌّ بدوره.',passlure:'أي خطر من «لوح الأخطار» تعالجه هذه الورشة؟ (سرقة الحسابات · كلمات سر ضعيفة · غرباء يطلبون صورًا)',hunt:'أي الممارسات تجنّبنا الأخطار التي ذكرناها؟',blackfraud:'أي خطر من «لوح الأخطار» تعالجه الآن؟ (ابتزاز · احتيال · روابط مزيفة · صور مفبركة)',balloon:'حماية الحساب كحماية البالون: نحميها معًا.',post:'ما الخطر الذي صرت أعرف كيف أواجهه الآن؟',end:'نعود إلى «لوح الأخطار» وشجرة الانتظارات: ما الذي تحقق؟'};
 const SXOBJ=`<div class="ctbox" style="border:3px solid #6A1B9A"><h3>🎯 أهداف الحصة</h3>
 <p><b>الهدف العام:</b> تمكين المشاركين من تبنّي ممارسات رقمية آمنة، بمعرفة مخاطر الإنترنت ومواقع التواصل الاجتماعي (الاستدراج، الابتزاز، الاحتيال، سرقة الحسابات، الإشاعات) وطرق حماية أنفسهم والإبلاغ وطلب المساعدة.</p>
 <p><b>الأهداف الإجرائية</b> (في نهاية الحصة يكون المشارك قادرًا على أن):</p><ol>
@@ -1950,10 +1949,15 @@ const SXOBJ=`<div class="ctbox" style="border:3px solid #6A1B9A"><h3>🎯 أهد
 <li>يذكر <b>80%</b> على الأقل من المشاركين أرقام الإبلاغ الثلاثة قبل نهاية الحصة.</li>
 <li>يبتكر كل فريق كلمة سر تحقق القواعد الأربع خلال ورشة كلمة السر (≤ 5 دقائق).</li>
 <li>يتكلم كل مشارك <b>مرة واحدة على الأقل</b> ويؤدي <b>دورًا واحدًا على الأقل</b> داخل فريقه.</li>
-<li>يوقّع <b>100%</b> من الراغبين على الميثاق في ورشة الميثاق، ويُسجَّل لكل فريق ما تعلّمه على بطاقات المجسم.</li></ul></div>`;
+<li>يوقّع <b>100%</b> من الراغبين على الميثاق في ورشة الميثاق، ويُسجَّل لكل فريق ما تعلّمه على بطاقات المجسم.</li></ul>
+<p class="warn"><b>ملاحظة:</b> قد لا يمكن تحقيق كل هذه الأهداف في حصة واحدة؛ اختر منها ما يناسب مجموعتك ووقتك، ويمكن استكمالها في حصص لاحقة.</p></div>`;
+const SXPL={"youth": [["🔑", "كلمة سري كنزي", "لن أشارك كلمة سري ولا رمز التحقق مع أحد، وسأجعل لكل حساب مهم كلمة سر قوية مختلفة.", "#6A1B9A"], ["✋", "توقّف · احظر · أخبر", "إن راسلني غريب أو طلب مني سرًّا أو صورة، أتوقف وأحظر وأخبر شخصًا بالغًا أثق به.", "#1565C0"], ["🤔", "فكّر قبل أن تنشر", "قبل أي نشر أسأل نفسي: هل سأندم على هذا بعد سنة؟", "#E65100"], ["🛡️", "لا للابتزاز", "لن أدفع لمبتز ولن أرد عليه، وسأوثّق بلقطات الشاشة وأخبر الكبار وأبلّغ: 1809 · 197 · 193.", "#C8102E"], ["🔎", "تحقّق ثم شارك", "أتحقق من الخبر ومصدره قبل أن أشاركه، ولن أعطي بيانات بطاقتي لأحد.", "#00897B"], ["🤝", "معًا أقوى", "لن أشارك في التنمر، وسأدعم من يتعرض له، وسأترك وقتًا للنوم والرياضة والأهل.", "#AD1457"]], "kids": [["🔑", "كلمة سري سرّي", "لا أعطيها إلا لأمي أو أبي، وأجعلها جملة طويلة أحبها.", "#6A1B9A"], ["🚫", "لا للغرباء", "لا أردّ على الغرباء في الألعاب، ولا أعطيهم اسمي ولا مدرستي ولا صوري.", "#1565C0"], ["📸", "فكّر قبل أن تنشر", "لا أنشر صورة أو معلومة قبل أن أسأل شخصًا بالغًا.", "#E65100"], ["🦸", "لا أخاف", "إذا هددني أحد أصوّر الشاشة وأخبر والديّ فورًا، فالمخطئ هو من يهدد وليس أنا.", "#C8102E"], ["🎁", "لا للهدايا الغريبة", "أتجاهل «الجواهر المجانية» و«التهكير المجاني»، ولا أعطي رمز الشحن لأحد.", "#00897B"], ["🤗", "أحمي أصدقائي", "لا أضحك على من يتعرض للتنمر، وأساعده، وأنام باكرًا وألعب بوقت محدد.", "#AD1457"]]};
+function sxPledge(){const L=SXPL[K()?'kids':'youth'];return `<div style="border-radius:24px;padding:.9rem;background:linear-gradient(135deg,#6A1B9A,#EF6C00);color:#fff;text-align:center;margin:.4rem 0"><div style="font-size:2.2rem">✍️🌟</div><div style="font-size:1.4rem;font-weight:bold">ميثاق الممارسات الرقمية</div><div>أنا سفير الأمان الرقمي: أتعهّد بإرادتي</div></div>${L.map((c,i)=>`<div style="display:flex;gap:.7rem;align-items:center;margin:.55rem 0;padding:.75rem .9rem;border-radius:20px;color:#fff;background:linear-gradient(150deg,${c[3]},#222 190%)"><span style="font-size:2.4rem">${c[0]}</span><div><div style="font-size:1.25rem;font-weight:bold">${i+1}. ${c[1]}</div><div style="font-size:1.05rem;line-height:1.55">${c[2]}</div></div></div>`).join('')}<div style="border:4px dashed #6A1B9A;border-radius:22px;padding:.8rem;margin:.6rem 0;background:linear-gradient(135deg,#F3E5F5,#FFF3E0)"><h3>🖊️ لوحة التوقيعات: وقّعوا على الميثاق</h3><div style="display:flex;gap:.4rem;flex-wrap:wrap"><input id="sxsig" placeholder="اكتب اسمك ثم اضغط «وقّع»" maxlength="30" style="flex:1;min-width:10rem;font:inherit;padding:.5rem;border:2px solid #6A1B9A;border-radius:12px;background:var(--panel);color:var(--ink)"><button class="btn" data-act="sxsign">✍️ وقّع</button></div><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem">${SX.sig.map((n,i)=>`<span style="padding:.35rem .8rem;border-radius:999px;color:#fff;font-weight:bold;background:${['#6A1B9A','#1565C0','#E65100','#00897B','#AD1457','#2E7D32'][i%6]}">✍️ ${esc(n)}</span>`).join('')}</div><p class="warn">${SX.sig.length?'عدد الموقّعين: <b>'+SX.sig.length+'</b>':'لم يوقّع أحد بعد.'} <button class="pill" data-act="sxsigdel">حذف آخر توقيع</button> وللتوقيع بخط اليد: لوحة التوقيعات في ملف الميثاق (الصفحة 3).</p></div><div class="help"><b>إن احتجت مساعدة:</b> الخط الأخضر للطفولة <b>1809</b> · الشرطة <b>197</b> · الحرس الوطني <b>193</b></div><p><a class="btn" href="mithaq-al-mumarasat.pdf" target="_blank" rel="noopener">🖨️ اطبع الميثاق (PDF)</a></p>`}
 const SXL={"youth": {"pass": ["كلمة السر الطويلة أقوى: 10 أحرف على الأقل بحروف وأرقام ورموز", "كلمة سر مختلفة لكل حساب مهم", "أفعّل التحقق بخطوتين ولا أشارك رمز التحقق"], "chat": ["أتوقف عند طلب السرية أو الاستعجال", "لا أثق بحساب لم ألتقِ صاحبه", "توقّف · احظر · أخبر شخصًا بالغًا تثق به"], "hunt": ["لا أعطي كلمة سري ولا رمز التحقق لأحد", "أقبل طلبات الصداقة ممن أعرفهم في الواقع فقط", "قبل أي تصرف أسأل: آمن أم خطير؟"], "black": ["لا أدفع للمبتز ولا أرد عليه", "أوثّق بلقطات الشاشة قبل الحظر", "أبلّغ: 1809 · 197 · 193، والمخطئ هو المبتز"], "fraud": ["الجهات الرسمية لا تطلب البطاقة ولا الرقم السري", "هدية مفاجئة + استعجال + رابط غريب = احتيال", "أتحقق من القنوات الرسمية ولا أدفع مسبقًا"], "share": ["أجعل حسابي خاصًا وأراجع إعدادات الخصوصية", "لا أنشر بياناتي ولا صور بطاقاتي", "هل سأقبل بما أنشره بعد سنة؟"], "news": ["أتحقق من مصدر الخبر قبل أن أشاركه", "من نشره؟ متى؟ هل ذُكر المصدر؟", "لا أشارك ما لا أتأكد منه"], "bully": ["لا أشارك في التنمر وأدعم من يتعرض له", "أوثّق وأبلّغ المنصة", "أطلب مساعدة شخص بالغ موثوق"], "balloon": ["نحمي حساباتنا معًا كما نحمي بالوناتنا", "التعاون أقوى من الدفاع وحدنا", "أحمي أصدقائي وأخبر إن رأيت خطرًا"], "end": ["أفكّر قبل أن أنشر", "أحتفظ بوقت للنوم والرياضة والأهل", "أنقل ما تعلمته لأسرتي"]}, "kids": {"pass": ["كلمة السر مفتاح بيتي الرقمي", "لا أعطيها إلا لأمي أو أبي", "أجعلها جملة طويلة أحبها"], "chat": ["لا أردّ على الغرباء", "لا أعطيهم اسمي ولا مدرستي ولا صوري", "أحظر وأخبر شخصًا بالغًا فورًا"], "hunt": ["لا أعطي كلمة سر حسابي لصديق في اللعبة", "أقبل صداقة من أعرفهم في الواقع فقط", "أسأل: آمن أم خطير؟"], "black": ["إذا هددني أحد لا أخاف ولا أعطيه شيئًا", "أصوّر الشاشة وأخبر والديّ", "المخطئ هو المبتز، وليس أنا"], "fraud": ["«جواهر مجانية» أو «تهكير مجاني» فخ", "لا أعطي رمز الشحن ولا كلمة السر", "أسأل أمي أو أبي قبل أي شراء"], "share": ["أجعل حسابي خاصًا", "لا أنشر اسمي الكامل ولا مدرستي ولا عنواني", "صورتي بزيّ المدرسة تدل الغريب علينا"], "news": ["لا أشارك «شارك لعشرة أصدقاء وإلا...»", "أسأل شخصًا بالغًا إن لم أتأكد", "أتحقق قبل أن أنشر"], "bully": ["لا أضحك على من يتعرض للتنمر", "أدعم صديقي وأخبر شخصًا بالغًا", "الكلمة الطيبة تحمي"], "balloon": ["نحمي حساباتنا معًا", "التعاون يحمينا أكثر", "أحمي أصدقائي"], "end": ["أفكر قبل أن أنشر الصور", "أنام باكرًا وألعب بوقت محدد", "أعلّم أسرتي ما تعلمته"]}};
-let SX={mn:{},wc:{},wm:{},ph:'setup',teams:[{n:'الفريق الأول',m:[],z:4},{n:'الفريق الثاني',m:[],z:4},{n:'الفريق الثالث',m:[],z:4}],names:'',sel:SXDEF.slice(),i:0,pt:{},tq:{pre:{},post:{}},q:0,rv:false,left:0,run:false,hu:[],hc:0,hl:null,jk:0,sid:0};
+let SX={fb:{h:0,s:0,t:{},note:''},sig:[],N:12,mn:{},wc:{},wm:{},ph:'play',teams:[{n:'الفريق الأول',m:[],z:4},{n:'الفريق الثاني',m:[],z:4},{n:'الفريق الثالث',m:[],z:4}],names:'',sel:SXDEF.slice(),i:0,pt:{},tq:{pre:{},post:{}},q:0,rv:false,left:0,run:false,hu:[],hc:0,hl:null,jk:0,sid:0};
 let sxTid=null;
+function sxEven(){const n=SX.teams.length,b=Math.floor(SX.N/n),r=SX.N%n;SX.teams.forEach((t,i)=>t.z=Math.max(1,b+(i<r?1:0)))}
+sxEven();
 const sxList=()=>[{k:'teams',ic:'⚙️',n:'الفئة والفرق وأهداف الحصة',m:0,must:true}].concat(SXORD.filter(k=>SX.sel.includes(k)).map(sxMeta));
 const sxTot=()=>sxList().reduce((a,s)=>a+s.m,0)+SXTR;
 const sxGet=(k,i)=>SX.pt[k+'|'+i]||0;
@@ -1964,27 +1968,31 @@ function sxScore(){
   const mx=Math.max(1,...SX.teams.map((_,i)=>sxTeamTot(i)));
   return `<div class="ctsb">${SX.teams.map((t,i)=>`<div class="cts"><span class="ctn">${esc(t.n)}</span><b>${sxTeamTot(i)}</b><span style="display:block;height:8px;background:var(--line);border-radius:6px;margin-top:.3rem"><i style="display:block;height:100%;border-radius:6px;background:var(--gold);width:${Math.round(sxTeamTot(i)/mx*100)}%"></i></span></div>`).join('')}</div>`;
 }
-function sxTeamsBlock(){
+function sxAudBlock(){
   return `<h3>فئة المشاركين</h3>
   <div class="row" style="gap:.5rem;flex-wrap:wrap"><button class="btn ${K()?'':'sec'}" data-act="sxaud" data-v="kids" aria-pressed="${K()}">اليافعين</button><button class="btn ${K()?'sec':''}" data-act="sxaud" data-v="youth" aria-pressed="${!K()}">الشباب</button></div>
   <p class="warn">الأسئلة والسيناريوهات والبطاقات تتغيّر بحسب الفئة المختارة (${K()?'اليافعين':'الشباب'}).</p>
-  <h3>الفرق</h3>
+  <h3>عدد المشاركين الحاضرين</h3>
+  <p><button class="pill" data-act="sxN" data-d="-10" aria-label="إنقاص عشرة">−10</button><button class="pill" data-act="sxN" data-d="-1" aria-label="إنقاص">−</button> <input type="number" inputmode="numeric" min="1" max="200" value="${SX.N}" data-act="sxNin" aria-label="عدد المشاركين الحاضرين" style="width:5.5rem;font:inherit;font-size:1.3rem;font-weight:bold;text-align:center;padding:.2rem;border:2px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)"> <button class="pill" data-act="sxN" data-d="1" aria-label="زيادة">+</button><button class="pill" data-act="sxN" data-d="10" aria-label="زيادة عشرة">+10</button> <span class="warn">يُستعمل في الاختبارين القبلي والبعدي، ثم تُقسَّم الفرق في ورشة «الفرق والأدوار وورقة الجوكر».</span></p>`;
+}
+function sxTeamsBlock(){
+  return `<h3>الفرق</h3>
   ${SX.teams.map((t,i)=>`<div class="ctrow"><input data-act="sxn" data-i="${i}" value="${esc(t.n)}" maxlength="24" aria-label="اسم الفريق ${i+1}"><span class="warn" style="white-space:nowrap">👥 ${t.z}</span><button class="pill" data-act="sxsz" data-i="${i}" data-d="1" aria-label="زيادة الأعضاء">+</button><button class="pill" data-act="sxsz" data-i="${i}" data-d="-1" aria-label="إنقاص الأعضاء">−</button>${SX.teams.length>3?`<button class="pill" data-act="sxdel" data-i="${i}" aria-label="حذف الفريق">✕</button>`:''}</div>${t.m.length?`<p class="warn" style="margin:.1rem 0 .5rem">${t.m.map(esc).join(' · ')}</p>`:''}`).join('')}
   ${SX.teams.length<5?`<button class="pill" data-act="sxadd">+ إضافة فريق</button>`:''}
+  <p class="warn">إجمالي المشاركين: <b>${SX.N}</b> (يتغيّر بتغيير أعضاء الفرق).</p>
   <p class="crow"><label>أسماء المشاركين (اختياري، اسم في كل سطر):<br><textarea data-act="sxnames" rows="4" style="width:100%;font:inherit;padding:.4rem;border:2px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)">${esc(SX.names)}</textarea></label></p>
   <p><button class="btn sec" data-act="sxsplit">🔀 قسّم المشاركين عشوائيًا على الفرق</button></p>`;
 }
-function sxView(){
-  if(SX.ph==='play')return sxPlay();
-  if(SX.ph==='end')return sxEnd();
+function sxPlanner(){
   const tot=sxTot(),over=tot>SXMAX;
-  return `<h2>الحصة التفاعلية</h2><p class="lead">الحصة كاملة داخل البرنامج دون أي وثائق: الفئة والفرق ثم ورشات الحصة بمحتواها وأسئلتها وألعابها، والنقاط لكل فريق. وتبقى مرحلة «الفئة والفرق» أول ورشة في الحصة يمكن الرجوع إليها دائمًا. (الحصة الورقية خطة بديلة عند انقطاع الكهرباء.)</p>
-  <div class="ctbox">${sxTeamsBlock()}
-  <h3>ورشات الحصة</h3>
+  return `<h3>ورشات الحصة</h3>
   <p class="warn">كل ورشات البرنامج متاحة، والإلزامية مثبّتة، والانتقالات ${SXTR} دقيقة. يمكنكم إضافة أي ورشة وتعديل دقائق كل ورشة؛ والحصة الورقية المقترحة ${SXMAX} دقيقة، فإن تجاوز المجموع ${SXMAX} دقيقة ظهر تنبيه فقط.</p>
-  <div class="ctks">${SXORD.map(sxMeta).map(s=>{const on=SX.sel.includes(s.k);return `<div class="qo" style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap"><label style="flex:1;min-width:12rem"><input type="checkbox" data-act="sxk" data-k="${s.k}" ${on?'checked':''} ${s.must?'disabled':''}> <span>${s.ic} ${s.n}${s.must?' (إلزامية)':''}</span></label>${on?`<span><button class="pill" data-act="sxmin" data-k="${s.k}" data-d="-1" aria-label="إنقاص دقيقة">−</button> <b>${s.m} د</b> <button class="pill" data-act="sxmin" data-k="${s.k}" data-d="1" aria-label="زيادة دقيقة">+</button></span>`:`<span class="warn">${s.m} د</span>`}</div>`}).join('')}</div>
-  <p class="${over?'warn':'lead'}" style="font-weight:bold">المجموع: ${tot} دقيقة ${over?`⚠️ تجاوز ${SXMAX} دقيقة بـ ${tot-SXMAX} د`:`(المتبقي من ${SXMAX}: ${SXMAX-tot} د)`}</p>
-  <p><button class="btn" data-act="sxstart">ابدأ الحصة التفاعلية</button></p></div>${SXOBJ}`;
+  <div class="ctks">${SXORD.map(sxMeta).map(s=>{const on=SX.sel.includes(s.k);return `<div class="qo" style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap"><label style="flex:1;min-width:12rem"><input type="checkbox" data-act="sxk" data-k="${s.k}" ${on?'checked':''} ${s.must?'disabled':''}> <span>${s.ic} ${s.n}${s.must?(['post','end','feedback'].includes(s.k)?' (إلزامية)':' (أساسية)'):''}</span></label>${on?`<span><button class="pill" data-act="sxmin" data-k="${s.k}" data-d="-1" aria-label="إنقاص دقيقة">−</button> <b>${s.m} د</b> <button class="pill" data-act="sxmin" data-k="${s.k}" data-d="1" aria-label="زيادة دقيقة">+</button></span>`:`<span class="warn">${s.m} د</span>`}</div>`}).join('')}</div>
+  <p class="${over?'warn':'lead'}" style="font-weight:bold">المجموع: ${tot} دقيقة ${over?`⚠️ تجاوز ${SXMAX} دقيقة بـ ${tot-SXMAX} د`:`(المتبقي من ${SXMAX}: ${SXMAX-tot} د)`}</p>`;
+}
+function sxView(){
+  if(SX.ph==='end')return sxEnd();
+  return sxPlay();
 }
 function sxEnter(i){sxStop();SX.i=i;SX.q=0;SX.rv=false;const s=sxList()[i];SX.left=s?s.m*60:0}
 function sxWho(k,title){
@@ -2002,18 +2010,28 @@ function sxGuide(k){if(SXSUB[k])return SXSUB[k].map(sxGuide).join('');
   const f=FAC[k];if(!f)return '';
   return `<details class="ctguide"><summary>📋 دليل المنشّط لهذه الورشة</summary><p><b>الهدف:</b> ${f.goal}</p><ul>${(f.run||[]).map(x=>`<li>${x}</li>`).join('')}</ul>${f.ask?`<p><b>أسئلة للنقاش:</b> ${f.ask.join(' · ')}</p>`:''}${f.care?`<p class="warn">⚠️ ${f.care}</p>`:''}</details>`;
 }
+function sxFeedback(){
+  const f=SX.fb,tot=f.h+f.s,ph=tot?Math.round(f.h/tot*100):0;
+  return `<div style="border-radius:22px;padding:.9rem;background:linear-gradient(135deg,#FFD54F,#6A1B9A);color:#fff;text-align:center;margin:.4rem 0"><div style="font-size:2.4rem">😄 😞</div><div style="font-size:1.4rem;font-weight:bold">وجهي يعبر عن رأيي</div><div>تقييم تشاركي للحصة: هل أعجبتك الحصة؟</div></div>
+  <div class="item"><b>المرحلة الأولى — التقييم الجماعي:</b> وزّع على كل فريق 16 قطعة مربعة (4 ألوان × 4)، واطلب منه أن يشكّل مربعًا يُعبّر عن انطباعه: وجه ضاحك (الرضا) أو وجه حزين (عدم الرضا). ثم سجّل اختيار كل فريق:</div>
+  ${SX.teams.map((t,i)=>`<div class="cts" style="display:flex;align-items:center;justify-content:space-between;margin:.3rem 0"><span class="ctn">${esc(t.n)}</span><span><button class="pill" data-act="sxfbt" data-i="${i}" data-v="h" aria-pressed="${f.t[i]==='h'}" style="${f.t[i]==='h'?'background:#FFD54F;font-weight:bold;outline:3px solid #F9A825':''}">😄 راضٍ</button><button class="pill" data-act="sxfbt" data-i="${i}" data-v="s" aria-pressed="${f.t[i]==='s'}" style="${f.t[i]==='s'?'background:#CE93D8;font-weight:bold;outline:3px solid #6A1B9A':''}">😞 غير راضٍ</button></span></div>`).join('')}
+  <div class="item"><b>المرحلة الثانية — التقييم الفردي:</b> ضع البطاقات في مكان مخصص، ويختار كل مشارك بطاقة واحدة: 😄 بطاقة ابتسامة أو فرحة (أعجبتهم الحصة)، 😞 بطاقة حزن أو بكاء (لم تعجبهم الحصة). ثم أحصِ البطاقات:</div>
+  <div class="ctbox"><p style="font-size:1.2rem">😄 أعجبتني: <b>${f.h}</b> <button class="pill" data-act="sxfb" data-k="h" data-d="1">+</button><button class="pill" data-act="sxfb" data-k="h" data-d="-1">−</button> &nbsp; 😞 لم تعجبني: <b>${f.s}</b> <button class="pill" data-act="sxfb" data-k="s" data-d="1">+</button><button class="pill" data-act="sxfb" data-k="s" data-d="-1">−</button></p>
+  <div style="height:16px;border-radius:10px;background:#CE93D8;overflow:hidden"><i style="display:block;height:100%;width:${ph}%;background:#FFD54F"></i></div><p class="warn">${tot?'نسبة الرضا: <b>'+ph+'%</b> من '+tot+' بطاقة':'لم تُسجَّل بطاقات بعد.'}</p></div>
+  <p class="crow"><label>ملاحظات المنشّط (يمكن طرح سؤال إضافي: «ما الذي أعجبك؟ وما الذي تقترحه؟»):<br><textarea data-act="sxfbn" rows="3" style="width:100%;font:inherit;padding:.4rem;border:2px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)">${esc(f.note)}</textarea></label></p>
+  <p class="warn">للاستماع لا للحكم: الأهم معرفة أسباب الاختيار، وتحسين برمجة الحصص القادمة. (جذاذة اللعبة وقطعها وبطاقاتها في ملف الألعاب التنشيطية.)</p>`;
+}
 function sxBody(s){
   const k=s.k;curKey=k;let h='';
-  if(k==='teams')return `<div class="item">هذه أول ورشة في الحصة، ويمكن الرجوع إليها في أي وقت لتغيير الفئة أو الفرق أو أسمائها دون خسارة النقاط.</div><div class="ctbox">${sxTeamsBlock()}</div>${SXOBJ}`;
+  if(k==='teams')return `<div class="item">هذه أول مرحلة في الحصة: اختر الفئة، واطّلع على الأهداف، ثم حدّد ورشات الحصة. يمكنك الرجوع إليها في أي وقت دون خسارة النقاط.</div><div class="ctbox">${sxAudBlock()}</div>${SXOBJ}<div class="ctbox">${sxPlanner()}</div>`;
   if(k==='zaw')return `<div class="item ctq">ما المشاكل والمخاطر التي يمكن أن تواجهنا حين نستعمل الإنترنت ومواقع التواصل الاجتماعي؟</div>
    <div class="ctbox"><h3>🧶 كرة الخيوط: شبكة العنكبوت</h3><ol><li>يقف الجميع في دائرة. يمسك المنشّط طرف الخيط ويذكر إجابته الأولى.</li><li>يرمي الكرة إلى مشارك يختاره وينادي اسمه، <b>وهو يمسك الخيط</b>.</li><li>يمسك المشارك الخيط، ويذكر فكرته (مشكلة أو خطرًا)، ثم يرمي الكرة إلى مشارك آخر من اختياره.</li><li>لا تُرمى الكرة لمن أجاب حتى يجيب الجميع. تتكوّن شبكة عنكبوت من الإجابات.</li><li>في الختام: انظروا إلى الشبكة، فكلنا مرتبطون على الإنترنت، وما يصيب واحدًا قد يصيب الجميع.</li></ol></div>
-   <p class="warn">🧵 دوّن الأفكار على لوح كبير «<b>لوح الأخطار</b>» يبقى معلقًا طوال الحصة: هو <b>الخيط الناظم</b> الذي نعود إليه في كل ورشة.</p>
    <p class="warn">كل إجابة مقبولة، دون تعليق ولا سخرية. المشارك الخجول يمكنه إعادة فكرة سمعها مع إضافة. لا تطلب قصصًا شخصية.</p>
    <div class="ctbox"><p>عدد الأفكار المذكورة: <b>${SX.zi||0}</b> <button class="pill" data-act="sxzi" data-d="1">+</button><button class="pill" data-act="sxzi" data-d="-1">−</button></p><p class="warn">اجمع الأفكار تحت عناوين (حسابات، غرباء، ابتزاز، احتيال، إشاعات، تنمر) واربطها بورشات الحصة. هذه الورشة بلا نقاط: كسر جليد وتمهيد.</p></div>`;
   if(k==='tree')return `<div class="item ctq">ماذا أنتظر من هذه الحصة؟ ماذا أريد أن أتعلّم؟</div>
    <div class="ctbox"><h3>🌳 مجسم شجرة الانتظارات</h3><ol><li>يكتب كل شاب انتظاره على <b>ورقة صغيرة</b> (دون اسم إن أراد).</li><li>يلصقها على <b>مجسم الشجرة</b> المعلّق في القاعة.</li><li>يقرأ المنشّط 3 إلى 4 أوراق باحترام، ويربطها بورشات الحصة.</li><li>نعود إلى الشجرة في ورشة الميثاق لنرى ما تحقق.</li></ol></div>
    <p class="warn">كل انتظار محترم. لا تقرأ ما يخص حالة شخصية. جذاذة الشجرة وأوراقها في ملف الألعاب التنشيطية.</p>`;
-  if(k==='open')return `<div class="item"><b>إرشادات موجزة (دقيقتان):</b> قسّم الفرق وسمّوها، ووزّع الأدوار، وسلّم ورقة جوكر لكل مشارك.</div><div class="rule"><span aria-hidden="true">👥</span><div><b>الأدوار (تتبدّل في كل ورشة):</b> 📝 المقرِّر يدوّن · 🎤 الناطق يعلن · 🔍 المحقِّق يسأل «لماذا؟» · ⏱️ حارس الوقت. ويتكلم كل واحد قبل أن يكتب المقرِّر.</div></div><div class="rule"><span aria-hidden="true">🃏</span><div><b>الجوكر:</b> فرصة واحدة لكل مشارك ليغادر قليلًا (حتى 3 دقائق) أو يتكلم خارج الموضوع (حتى دقيقة). يقبلها المنشّط فورًا وتُسحب. المستعمل: <b>${SX.jk}</b> <button class="pill" data-act="sxjk" data-d="1">+</button><button class="pill" data-act="sxjk" data-d="-1">−</button></div></div>`;
+  if(k==='open')return `<div class="item"><b>إرشادات موجزة (دقيقتان):</b> بعد الزوبعة وشجرة الانتظارات والاختبار القبلي، قسّم المشاركين إلى فرق وسمّوها، ووزّع الأدوار، وسلّم ورقة جوكر لكل مشارك.</div><div class="ctbox">${sxTeamsBlock()}</div><div class="rule"><span aria-hidden="true">👥</span><div><b>الأدوار (تتبدّل في كل ورشة):</b> 📝 المقرِّر يدوّن · 🎤 الناطق يعلن · 🔍 المحقِّق يسأل «لماذا؟» · ⏱️ حارس الوقت. ويتكلم كل واحد قبل أن يكتب المقرِّر.</div></div><div class="rule"><span aria-hidden="true">🃏</span><div><b>الجوكر:</b> فرصة واحدة لكل مشارك ليغادر قليلًا (حتى 3 دقائق) أو يتكلم خارج الموضوع (حتى دقيقة). يقبلها المنشّط فورًا وتُسحب. المستعمل: <b>${SX.jk}</b> <button class="pill" data-act="sxjk" data-d="1">+</button><button class="pill" data-act="sxjk" data-d="-1">−</button></div></div>`;
   if(false&&k==='open')return `<div class="item"><b>الأدوار داخل كل فريق</b> (تتبدّل في كل محطة، ويتكلم كل واحد قبل أن يكتب المقرِّر):</div>${SXR.map(r=>`<div class="rule"><span aria-hidden="true">${r[0]}</span><div><b>${r[1]}:</b> ${r[2]}</div></div>`).join('')}
    <div class="ctbox"><h3>🃏 ورقة الجوكر</h3><p>لكل مشارك فرصة واحدة: يستعملها ليغادر القاعة قليلًا (حتى 3 دقائق) أو ليتكلم خارج موضوع الحصة (حتى دقيقة، على انفراد قدر الإمكان). يقبلها المنشّط فورًا دون جدال وتُسحب منه.</p><p>الجوكر المستعمل: <b>${SX.jk}</b> <button class="pill" data-act="sxjk" data-d="1">+</button><button class="pill" data-act="sxjk" data-d="-1">−</button></p></div>
    <div class="rule"><span aria-hidden="true">🌟</span><div><b>اللعب النظيف:</b> لا إجابة قبل رفع الورقة · لا سخرية من أي جواب · لا قصص شخصية أمام المجموعة. الشاب المندفع يأخذ دور المحقِّق أو حارس الوقت، والخجولة تأخذ المقرِّر أو الناطق ومعها جواب مكتوب.</div></div>`;
@@ -2021,15 +2039,16 @@ function sxBody(s){
   if(k==='pre'||k==='post')return sxTest(k);
   if(k==='hunt')return sxHunt();
   if(k==='balloon')return `<div class="item"><b>الفكرة:</b> يربط كل مشارك بالونًا بخيط طوله متر في ساقه فوق الكاحل. يحاول كل فريق تفجير بالونات الفرق الأخرى بالقدم وحماية بالونات فريقه، ومن انفجر بالونه يخرج من الساحة. الفريق الفائز من يبقى لديه أكثر بالونات.</div><ul><li>بالقدم فقط، ممنوع الدفع أو الإمساك بالخيط أو حماية البالون باليدين.</li><li>حذاء مغلق وأرض غير زلقة، ولا ركض عنيف. استبعد من عنده ألم في الركبة أو الكاحل، وانتبه لحساسية اللاتكس.</li><li>الصفارة تعني التوقف الفوري. المدة 3–4 دقائق.</li></ul><div class="rule"><span aria-hidden="true">💬</span><div><b>أسئلة الربط:</b> ماذا فعل فريقكم لحماية بالوناته؟ كيف يشبه ذلك حماية حساباتنا وصورنا؟ ماذا يحدث حين نحمي أصدقاءنا بدل أن ندافع وحدنا؟</div></div>`+sxPts('balloon','+5 لكل بالون باقٍ');
-  if(k==='end')return `<ul class="pledge">${PLEDGE.map(t=>`<li>${t}</li>`).join('')}</ul><div class="help"><b>إن احتجت مساعدة:</b> الخط الأخضر للطفولة <b>1809</b> · الشرطة <b>197</b> · الحرس الوطني <b>193</b></div><p class="ctx">اسأل: «ما القاعدة التي ستنقلها لأسرتك؟»</p>`;
-  if(SXSUB[k]){let o='';SXSUB[k].forEach((q,ix)=>{curKey=q;o+=(ix?'<hr>':'')+VIEW[q]()+sxWho(q,'نقاط '+ST.find(x=>x.k===q).n)});return o}
+  if(k==='feedback')return sxFeedback();
+  if(k==='end')return sxPledge()+`<p class="ctx">اسأل: «ما القاعدة التي ستنقلها لأسرتك؟» ثم عودوا إلى شجرة الانتظارات: ما الذي تحقق؟</p>`;
+  if(SXSUB[k]){let o='';SXSUB[k].forEach((q,ix)=>{curKey=q;const stn=ST.find(x=>x.k===q);o+=(ix?'<hr>':'')+`<div style="border-radius:16px;padding:.5rem .9rem;margin:.6rem 0;color:#fff;font-weight:bold;font-size:1.15rem;background:linear-gradient(90deg,${['#6A1B9A','#1565C0','#C8102E','#EF6C00'][ix%4]},#222 260%)">${stn.ic} المحطة: ${stn.n}${q==='chat'?' — غريب يراسلك':''}</div>`+VIEW[q]()+sxWho(q,'نقاط '+stn.n)});return o}
   h=VIEW[k]();
   return h+sxWho(k,'نقاط الورشة');
 }
 function sxTest(k){
-  const Q=PRETEST[S.aud],pre=k==='pre',N=SX.teams.reduce((a,t)=>a+t.z,0),PQ=['#6A1B9A','#1565C0','#E65100','#00897B','#AD1457'],AL=['أ','ب','ج'];
+  const Q=PRETEST[S.aud],pre=k==='pre',N=SX.N,PQ=['#6A1B9A','#1565C0','#E65100','#00897B','#AD1457'],AL=['أ','ب','ج'];
   const ban=`<div style="border-radius:22px;padding:1rem 1.1rem;color:#fff;background:linear-gradient(135deg,${pre?'#6A1B9A,#1565C0':'#00897B,#F9A825'});margin:.4rem 0 .8rem;text-align:center"><div style="font-size:2.2rem">${pre?'🧭':'🏁'}</div><div style="font-size:1.35rem;font-weight:bold">${pre?'الاختبار القبلي في الأمان الرقمي':'الاختبار البعدي في الأمان الرقمي'}</div><div>${pre?'نقطة البداية: ماذا نعرف قبل الحصة؟':'ماذا تغيّر بعد الحصة؟'}</div></div>`;
-  const note=`<div class="item">📌 <b>تقييم للمعارف لا يدخل في نقاط المسابقة.</b> ${pre?'إجابة فردية صامتة دون تصحيح، ولا تُعلن الإجابات الآن؛ المقارنة تتم في النهاية.':'الأسئلة نفسها الآن. أظهر الإجابات الصحيحة وصحّحوا معًا ثم قارنوا مع القبلي.'}</div><p class="warn">طريقة الإجابة بالحركة: على ثلاثة جوانب من القاعة لافتات <b>أ</b> و<b>ب</b> و<b>ج</b> (ورقات A5 جاهزة للطباعة). بعد قراءة كل سؤال <b>ينتقل كل مشارك إلى جانب إجابته</b>، ثم يعدّ المنشّط من أصاب ويسجّل العدد هنا. عدد الحاضرين: <b>${N}</b> (يُعدَّل من أعضاء الفرق في الإعداد).</p>`;
+  const note=`<div class="item">📌 <b>تقييم للمعارف لا يدخل في نقاط المسابقة.</b> ${pre?'إجابة فردية صامتة دون تصحيح، ولا تُعلن الإجابات الآن؛ المقارنة تتم في النهاية.':'الأسئلة نفسها الآن. أظهر الإجابات الصحيحة وصحّحوا معًا ثم قارنوا مع القبلي.'}</div><p class="warn">طريقة الإجابة بالحركة: على ثلاثة جوانب من القاعة لافتات <b>أ</b> و<b>ب</b> و<b>ج</b> (ورقات A5 جاهزة للطباعة). بعد قراءة كل سؤال <b>ينتقل كل مشارك إلى جانب إجابته</b>، ثم يعدّ المنشّط من أصاب ويسجّل العدد هنا. عدد الحاضرين: <b>${N}</b> (يُضبط في الورشة الأولى).</p>`;
   const cards=Q.map((it,qi)=>{const c=PQ[qi%5],v=SX.tq[k][qi]||0;
     return `<div style="border:4px solid ${c};border-radius:22px;margin:.8rem 0;overflow:hidden;background:var(--panel)">
     <div style="background:${c};color:#fff;padding:.7rem .9rem;display:flex;gap:.6rem;align-items:center"><span style="min-width:2.3rem;height:2.3rem;border-radius:50%;background:#fff;color:${c};font-weight:bold;font-size:1.3rem;display:flex;align-items:center;justify-content:center">${qi+1}</span><span style="font-size:1.2rem;font-weight:bold;line-height:1.5">${it.q}</span></div>
@@ -2050,14 +2069,13 @@ function sxHunt(){
   <p><button class="pill" data-act="sxhreset">إعادة تهيئة اللعبة</button></p></div>`;
 }
 function sxPlay(){
-  const L=sxList(),s=L[SX.i],n=L.length;
+  const L=sxList(),n=L.length;if(SX.i>=n)SX.i=n-1;const s=L[SX.i];
   const chips=`<div class="row" style="gap:.3rem;flex-wrap:wrap">${L.map((x,j)=>`<button class="pill" data-act="sxgo" data-i="${j}" aria-label="${x.n}" title="${x.n}" style="${j===SX.i?'font-weight:bold;outline:3px solid var(--gold)':''}">${x.ic}</button>`).join('')}</div>`;
   const mm=Math.floor(SX.left/60),ss=String(SX.left%60).padStart(2,'0'),used=L.slice(0,SX.i).reduce((a,x)=>a+x.m,0);
   return `<h2>الحصة التفاعلية <span class="warn">(${K()?'اليافعين':'الشباب'})</span></h2>${sxScore()}${chips}
   <h3>${s.ic} ${s.n} <span class="warn">(الورشة ${SX.i+1} من ${n} · ${s.m} د · مضى ~${used} د من ${sxTot()})</span></h3>
   ${s.m?'':'<!--'}<div class="cttrow"><div class="cttimer ${SX.left<=0?'end':''}" id="sxt" style="font-size:1.9rem;min-width:6rem;border-radius:2rem">${mm}:${ss}</div><button class="btn sec" data-act="sxtimer">${SX.run?'إيقاف المؤقت':'ابدأ المؤقت'}</button></div>${s.m?'':'-->'}
   ${sxGuide(s.k)}
-  ${s.k==='zaw'||s.k==='teams'?'':`<div class="item" style="border-right:6px solid #6A1B9A">🧵 <b>الخيط الناظم:</b> «${SXFIL}»<br>${SXFILH[s.k]||'أي خطر من «لوح الأخطار» تعالجه هذه الورشة؟ وما الحل الذي تعلّمناه؟'}</div>`}
   <p class="warn">🔄 بدّلوا الأدوار (مقرِّر ← ناطق ← محقِّق ← حارس الوقت)، ويتكلم كل واحد قبل أن يكتب المقرِّر.</p>
   ${sxBody(s)}
   ${sxLearn(s.k)}
@@ -2073,13 +2091,15 @@ function sxAfter(){
 }
 function sxEnd(){
   const L=sxList(),r=SX.teams.map((t,i)=>({n:t.n,i,s:sxTeamTot(i)})).sort((a,b)=>b.s-a.s),top=r.filter(x=>x.s===r[0].s),tie=top.length>1&&r[0].s>0,win=!tie&&r[0].s>0,med=['🥇','🥈','🥉'];
-  const cols=[].concat(...L.filter(s=>SXSUB[s.k]||SXSTEP[s.k]||!['teams','zaw','tree','open','pre','post','end'].includes(s.k)).map(s=>SXSUB[s.k]?SXSUB[s.k].map(q=>({k:q,ic:ST.find(x=>x.k===q).ic})):[{k:s.k,ic:s.ic}])).concat([{k:'help',ic:'🤝'}]);
+  const cols=[].concat(...L.filter(s=>SXSUB[s.k]||SXSTEP[s.k]||!['teams','zaw','tree','open','pre','post','end','feedback'].includes(s.k)).map(s=>SXSUB[s.k]?SXSUB[s.k].map(q=>({k:q,ic:ST.find(x=>x.k===q).ic})):[{k:s.k,ic:s.ic}])).concat([{k:'help',ic:'🤝'}]);
   return `<h2>نتيجة الحصة التفاعلية</h2><div class="gcenter">${win?'<div class="trophy" aria-hidden="true">🏆</div>':guide('happy',96)}</div>
   <p class="lead" style="text-align:center;font-size:1.3rem">${tie?'تعادل بين: '+top.map(x=>esc(x.n)).join(' و '):r[0].s===0?'لم يسجّل أحد نقطة!':'الفريق الفائز: <b class="winner">'+esc(top[0].n)+'</b>'}</p>
   <div class="ctrank">${r.map((x,i)=>`<div class="cts"><span class="ctn">${x.s>0&&i<3?med[i]+' ':''}${i+1}. ${esc(x.n)}</span><b>${x.s}</b></div>`).join('')}</div>
   ${tie?`<p class="warn" style="text-align:center">سؤال فاصل: «اذكروا أرقام الإبلاغ الثلاثة وصاحب كل رقم»: 1809 الطفولة · 197 الشرطة · 193 الحرس الوطني.</p>`:''}
   <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>الفريق</th>${cols.map(c=>`<th>${c.ic}</th>`).join('')}<th>المجموع</th></tr></thead><tbody>${r.map(x=>`<tr><td>${esc(x.n)}</td>${cols.map(c=>`<td>${sxGet(c.k,x.i)}</td>`).join('')}<td><b>${x.s}</b></td></tr>`).join('')}</tbody></table></div>
   <p class="warn">«اللعب النظيف»: التقدّم يُحسب للفريق لا للأفراد، فلا تقارن مشاركًا بآخر.</p>
+  ${(SX.fb.h+SX.fb.s+Object.values(SX.fb.t).filter(Boolean).length)?`<div class="ctbox"><h3>🙂 تقييم الحصة</h3><p>😄 ${SX.fb.h} · 😞 ${SX.fb.s}${SX.fb.h+SX.fb.s?' — نسبة الرضا '+Math.round(SX.fb.h/(SX.fb.h+SX.fb.s)*100)+'%':''}</p><p>الفرق: ${SX.teams.map((t,i)=>esc(t.n)+' '+(SX.fb.t[i]==='h'?'😄':SX.fb.t[i]==='s'?'😞':'—')).join(' · ')}</p>${SX.fb.note?'<p>'+esc(SX.fb.note)+'</p>':''}</div>`:''}
+  <div class="ctbox"><h3>✍️ نسخة الميثاق</h3>${sxPledge()}</div>
   <p><button class="btn" data-act="sxagain">حصة جديدة بالفرق نفسها</button> <button class="btn sec" data-act="sxsetup">تعديل الإعدادات</button></p>`;
 }
 function sxSave(){
@@ -2089,16 +2109,23 @@ function sxInput(t){
   const a=t.dataset&&t.dataset.act;
   if(a==='sxn'){SX.teams[+t.dataset.i].n=t.value;return true}
   if(a==='sxnames'){SX.names=t.value;return true}
+  if(a==='sxfbn'){SX.fb.note=t.value;return true}
+  if(a==='sxNin'){const v=parseInt(t.value,10);if(isFinite(v)&&v>=1){SX.N=Math.min(200,v);sxEven()}return true}
   return false;
 }
-function sxReset(){SX.wc={};SX.wm={};SX.pt={};SX.tq={pre:{},post:{}};SX.hu=[];SX.hl=null;SX.hc=0;SX.jk=0;SX.sid=0}
+function sxReset(){SX.sig=[];SX.fb={h:0,s:0,t:{},note:''};SX.wc={};SX.wm={};SX.pt={};SX.tq={pre:{},post:{}};SX.hu=[];SX.hl=null;SX.hc=0;SX.jk=0;SX.sid=0}
 function sxClick(a,t){
   switch(a){
    case 'sxaud':{const v=t.dataset.v;if((v==='kids')!==K()){const pl=S.pledge;fresh(true);S.aud=v;S.pledge=pl;S.mode='sess'}render();return true}
-   case 'sxadd':if(SX.teams.length<5){SX.teams.push({n:'الفريق '+['الأول','الثاني','الثالث','الرابع','الخامس'][SX.teams.length],m:[],z:4});render()}return true;
-   case 'sxdel':if(SX.teams.length>3){SX.teams.splice(+t.dataset.i,1);render()}return true;
-   case 'sxsz':{const tm=SX.teams[+t.dataset.i];tm.z=Math.max(1,Math.min(12,tm.z+(+t.dataset.d)));render();return true}
-   case 'sxsplit':{const nm=SX.names.split('\n').map(x=>x.trim()).filter(Boolean);for(let i=nm.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[nm[i],nm[j]]=[nm[j],nm[i]]}SX.teams.forEach(x=>x.m=[]);nm.forEach((x,i)=>SX.teams[i%SX.teams.length].m.push(x));SX.teams.forEach(x=>{if(x.m.length)x.z=x.m.length});render();return true}
+   case 'sxadd':if(SX.teams.length<5){SX.teams.push({n:'الفريق '+['الأول','الثاني','الثالث','الرابع','الخامس'][SX.teams.length],m:[],z:4});sxEven();render()}return true;
+   case 'sxsign':{const el=document.getElementById('sxsig'),v=el?el.value.trim():'';if(v){SX.sig.push(v);sfx('ok')}render();return true}
+   case 'sxsigdel':SX.sig.pop();render();return true;
+   case 'sxfbt':{const i=+t.dataset.i,v=t.dataset.v;SX.fb.t[i]=SX.fb.t[i]===v?'':v;render();return true}
+   case 'sxfb':{const k=t.dataset.k;SX.fb[k]=Math.max(0,Math.min(500,SX.fb[k]+(+t.dataset.d)));render();return true}
+   case 'sxN':SX.N=Math.max(1,Math.min(200,SX.N+(+t.dataset.d)));sxEven();render();return true;
+   case 'sxdel':if(SX.teams.length>3){SX.teams.splice(+t.dataset.i,1);sxEven();render()}return true;
+   case 'sxsz':{const tm=SX.teams[+t.dataset.i];tm.z=Math.max(1,Math.min(200,tm.z+(+t.dataset.d)));SX.N=SX.teams.reduce((a,x)=>a+x.z,0);render();return true}
+   case 'sxsplit':{const nm=SX.names.split('\n').map(x=>x.trim()).filter(Boolean);for(let i=nm.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[nm[i],nm[j]]=[nm[j],nm[i]]}SX.teams.forEach(x=>x.m=[]);nm.forEach((x,i)=>SX.teams[i%SX.teams.length].m.push(x));SX.teams.forEach(x=>{if(x.m.length)x.z=x.m.length});if(nm.length)SX.N=nm.length;render();return true}
    case 'sxk':{const k=t.dataset.k;if(t.checked){if(!SX.sel.includes(k))SX.sel.push(k)}else SX.sel=SX.sel.filter(x=>x!==k);render();return true}
    case 'sxmin':{const k=t.dataset.k,m=sxMeta(k).m;SX.mn[k]=Math.max(1,Math.min(90,m+(+t.dataset.d)));render();return true}
    case 'sxwc':{const k=t.dataset.k,i=+t.dataset.i,a=SX.wc[k]||(SX.wc[k]=[]),p=a.indexOf(i);if(p>=0)a.splice(p,1);else a.push(i);SX.wm[k]='';render();return true}
@@ -2111,13 +2138,13 @@ function sxClick(a,t){
    case 'sxnext':if(SX.i+1<sxList().length){sxEnter(SX.i+1);render(true)}else{sxStop();SX.ph='end';sfx('win');sxSave();render(true)}return true;
    case 'sxquit':sxStop();SX.ph='end';sxSave();render(true);return true;
    case 'sxagain':sxReset();SX.ph='play';sxEnter(0);render(true);return true;
-   case 'sxsetup':sxStop();SX.ph='setup';render(true);return true;
+   case 'sxsetup':sxStop();SX.ph='play';sxEnter(0);render(true);return true;
    case 'sxzi':SX.zi=Math.max(0,(SX.zi||0)+(+t.dataset.d));render();return true;
    case 'sxjk':SX.jk=Math.max(0,SX.jk+(+t.dataset.d));render();return true;
    case 'sxpt':{const k=t.dataset.k,i=+t.dataset.i,d=+t.dataset.d,sp=SXSTEP[k]||[5,20],mx=k==='help'?10:sp[1];let v=Math.max(0,sxGet(k,i)+d);if(mx)v=Math.min(mx,v);SX.pt[k+'|'+i]=v;render();return true}
    case 'sxq':SX.q=+t.dataset.j;SX.rv=false;render();return true;
    case 'sxrv':SX.rv=!SX.rv;render();return true;
-   case 'sxtq':{const k=sxList()[SX.i].k,q=+t.dataset.q,N=SX.teams.reduce((a,x)=>a+x.z,0);SX.tq[k][q]=Math.max(0,Math.min(N,(SX.tq[k][q]||0)+(+t.dataset.d)));render();return true}
+   case 'sxtq':{const k=sxList()[SX.i].k,q=+t.dataset.q,N=SX.N;SX.tq[k][q]=Math.max(0,Math.min(N,(SX.tq[k][q]||0)+(+t.dataset.d)));render();return true}
    case 'sxht':SX.hc=+t.dataset.i;render();return true;
    case 'sxcard':{const j=+t.dataset.j,c=sxCards()[j];if(SX.hu.find(x=>x.j===j))return true;SX.hu.push({j,i:SX.hc});SX.hl=j;if(c[1]){SX.pt['hunt|'+SX.hc]=sxGet('hunt',SX.hc)+5;sfx('ok')}else sfx('bad');render();return true}
    case 'sxhreset':SX.hu.forEach(x=>{if(sxCards()[x.j][1])SX.pt['hunt|'+x.i]=Math.max(0,sxGet('hunt',x.i)-5)});SX.hu=[];SX.hl=null;render();return true;

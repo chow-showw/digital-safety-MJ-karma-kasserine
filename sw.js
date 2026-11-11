@@ -1,6 +1,6 @@
 /* عمل البرنامج دون إنترنت: الصفحة أولًا من الشبكة (لتصل التحديثات)، ثم من الذاكرة عند انقطاعها */
-const CACHE = 'fadaa-safe-v8';
-const FILES = ['./', 'index.html', 'terms.html', 'yaqzan-game.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'hissa-60.pdf', 'awraq-al-shabab.pdf', 'awraq-al-yafieen.pdf', 'alaab-tanshitiya.pdf', 'nasaeh-al-aman.pdf', 'bitaqat-tawiya-shabab.pdf', 'bitaqat-tawiya-yafieen.pdf', 'bitaqat-taallumat.pdf', 'adwar-al-fariq.pdf', 'lafitat-abj.pdf', 'daleel-shabab.pdf', 'daleel-yafieen.pdf', 'daleel-awliya.pdf'];
+const CACHE = 'fadaa-safe-v14';
+const FILES = ['./', 'index.html', 'terms.html', 'qr.html', 'mithaq-al-mumarasat.pdf', 'yaqzan-game.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'hissa-60.pdf', 'awraq-al-shabab.pdf', 'awraq-al-yafieen.pdf', 'alaab-tanshitiya.pdf', 'nasaeh-al-aman.pdf', 'bitaqat-tawiya-shabab.pdf', 'bitaqat-tawiya-yafieen.pdf', 'bitaqat-taallumat.pdf', 'adwar-al-fariq.pdf', 'lafitat-abj.pdf', 'daleel-shabab.pdf', 'daleel-yafieen.pdf', 'daleel-awliya.pdf'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(FILES.map(f => c.add(f).catch(() => {})))).then(() => self.skipWaiting()));
