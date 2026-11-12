@@ -1333,7 +1333,7 @@ function render(){var b=baseUrl(),m=document.getElementById('msg'),box=document.
  if(!b){m.innerHTML='<p class="warn">⚠️ أدخل رابط موقعك المنشور أعلاه ثم اضغط «تحديث الرموز».</p>';box.innerHTML='';return}
  m.innerHTML='';box.innerHTML=G.map(function(g){return sheet(g,b+g.f)}).join('')+combo(b);try{localStorage.setItem('qrbase',document.getElementById('base').value)}catch(e){}}
 (function(){var i=document.getElementById('base'),v='';try{v=localStorage.getItem('qrbase')||''}catch(e){}
- if(!v&&/^https?:/.test(location.href)){v=location.href.replace(/[^\/]*$/,'')}
+ if(!v&&/^https?:/.test(location.href)){v=location.href.replace(/[^\/]*$/,'')}if(!v)v='https://chow-showw.github.io/digital-safety-MJ-karma-kasserine/';
  i.value=v;document.getElementById('upd').onclick=render;document.getElementById('prt').onclick=function(){render();setTimeout(function(){window.print()},200)};i.addEventListener('change',render);render()})();
 </script>
 </body>
